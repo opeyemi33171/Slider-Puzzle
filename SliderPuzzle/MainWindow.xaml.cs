@@ -45,6 +45,7 @@ namespace SliderPuzzle
                             Height = 99,
                             Background=new SolidColorBrush(Colors.LightGray)
                         };
+                        puzzlePiece.MouseDown += puzzlePiece_MouseDown;
                         empty = puzzlePiece;
                     }
                     else
@@ -57,10 +58,11 @@ namespace SliderPuzzle
                             XCoOrdinate=x,
                             YCoOrdinate=y
                         };
+                        puzzlePiece.MouseDown += puzzlePiece_MouseDown;
                         puzzleCounter += 1;
+ 
                     }
                    
-                    puzzlePiece.MouseDown += puzzlePiece_MouseDown;
                     GameBoard.Children.Add(puzzlePiece);
                     Canvas.SetLeft(puzzlePiece, x * puzzlePiece.Width);
                     Canvas.SetTop(puzzlePiece, y * puzzlePiece.Height);
@@ -105,14 +107,15 @@ namespace SliderPuzzle
             {
                 Points emptySpace = new Points(canMove(((Label)sender).XCoOrdinate, ((Label)sender).YCoOrdinate).xCoOrdinate, canMove(((Label)sender).XCoOrdinate, ((Label)sender).YCoOrdinate).yCoOrdinate);
                 sliderPuzzle[emptySpace.xCoOrdinate, emptySpace.yCoOrdinate] = sliderPuzzle[currentLocation.XCoOrdinate, currentLocation.YCoOrdinate];
-                sliderPuzzle[currentLocation.XCoOrdinate, currentLocation.YCoOrdinate] = sliderPuzzle[emptySpace.xCoOrdinate, emptySpace.yCoOrdinate];
+                string temp = sliderPuzzle[emptySpace.xCoOrdinate, emptySpace.yCoOrdinate];
+                sliderPuzzle[currentLocation.XCoOrdinate, currentLocation.YCoOrdinate] = temp;
                 empty.Number.Background = new SolidColorBrush(Colors.Red);
                 empty.Number.Text = currentLocation.Number.Text;
                 currentLocation.Number.Background = new SolidColorBrush(Colors.LightGray);
                 currentLocation.Number.Text="";
                 empty=currentLocation;
 
-                
+                                
           }
             
         }
