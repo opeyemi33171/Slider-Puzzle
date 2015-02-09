@@ -27,6 +27,7 @@ namespace SliderPuzzle
         string[,] sliderPuzzle = new string[3, 3];
         int puzzleCounter = 1;
         Label puzzlePiece;
+        Label empty;
         private void GameBoard_Loaded(object sender, RoutedEventArgs e)
         {
             for (int y = 0; y <=2; y++)
@@ -44,6 +45,7 @@ namespace SliderPuzzle
                             Height = 99,
                             Background=new SolidColorBrush(Colors.LightGray)
                         };
+                        empty = puzzlePiece;
                     }
                     else
                     {
@@ -65,23 +67,51 @@ namespace SliderPuzzle
                 }
             }
         }
-        public bool canMove(int xCoOrdinate, int yCoOrdinate)
-        {
-            try
-            {
-                if (sliderPuzzle[xCoOrdinate + 1, yCoOrdinate] == "" || sliderPuzzle[xCoOrdinate - 1, yCoOrdinate] == "") return true;
-                if (sliderPuzzle[xCoOrdinate, yCoOrdinate + 1] == "" || sliderPuzzle[xCoOrdinate, yCoOrdinate - 1] == "") return true;
-            }
-            catch { };
-            return false;
-        }
-        public void move()
+        public Points canMove(int xCoOrdinate, int yCoOrdinate)
         {
 
+            try
+            {
+                
+                if (sliderPuzzle[xCoOrdinate + 1, yCoOrdinate] == "") return new Points(xCoOrdinate + 1, yCoOrdinate);
+            }
+            catch { };
+            try
+            {
+                if (sliderPuzzle[xCoOrdinate - 1, yCoOrdinate] == "") return new Points(xCoOrdinate - 1, yCoOrdinate);
+            }
+            catch { };
+            try
+            {
+                if (sliderPuzzle[xCoOrdinate, yCoOrdinate + 1] == "") return new Points(xCoOrdinate, yCoOrdinate + 1);
+            }
+            catch { };
+            try
+            {
+                if (sliderPuzzle[xCoOrdinate, yCoOrdinate - 1] == "") return new Points(xCoOrdinate, yCoOrdinate - 1);
+            }
+            catch { };
+
+            return null;
         }
+        //public void move()
+        //{
+
+        //}
         void puzzlePiece_MouseDown(object sender, MouseButtonEventArgs e)
         {
-            canMove(((Label)sender).XCoOrdinate, ((Label)sender).YCoOrdinate);
+            Label currentLocation = (Label)sender;
+            Points emptySpace = new Points(canMove(((Label)sender).XCoOrdinate, ((Label)sender).YCoOrdinate).xCoOrdinate, canMove(((Label)sender).XCoOrdinate, ((Label)sender).YCoOrdinate).yCoOrdinate);
+            if(emptySpace!=null){
+                sliderPuzzle[emptySpace.xCoOrdinate, emptySpace.yCoOrdinate] = sliderPuzzle[currentLocation.XCoOrdinate, currentLocation.YCoOrdinate];
+                sliderPuzzle[currentLocation.XCoOrdinate, currentLocation.YCoOrdinate] = sliderPuzzle[emptySpace.xCoOrdinate, emptySpace.yCoOrdinate];
+                empty.Background = new SolidColorBrush(Colors.Red);
+                empty.Number.Text = currentLocation.Number.Text;
+                currentLocation.Background = new SolidColorBrush(Colors.LightGray);
+                currentLocation.Number.Text="";
+
+                
+          }
             
         }
     }
