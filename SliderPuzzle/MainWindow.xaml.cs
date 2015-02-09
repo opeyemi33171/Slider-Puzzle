@@ -106,8 +106,8 @@ namespace SliderPuzzle
             if(canMove(currentLocation.XCoOrdinate,currentLocation.YCoOrdinate)!=null)
             {
                 Points emptySpace = new Points(canMove(((Label)sender).XCoOrdinate, ((Label)sender).YCoOrdinate).xCoOrdinate, canMove(((Label)sender).XCoOrdinate, ((Label)sender).YCoOrdinate).yCoOrdinate);
-                sliderPuzzle[emptySpace.xCoOrdinate, emptySpace.yCoOrdinate] = sliderPuzzle[currentLocation.XCoOrdinate, currentLocation.YCoOrdinate];
                 string temp = sliderPuzzle[emptySpace.xCoOrdinate, emptySpace.yCoOrdinate];
+                sliderPuzzle[emptySpace.xCoOrdinate, emptySpace.yCoOrdinate] = sliderPuzzle[currentLocation.XCoOrdinate, currentLocation.YCoOrdinate];
                 sliderPuzzle[currentLocation.XCoOrdinate, currentLocation.YCoOrdinate] = temp;
                 empty.Number.Background = new SolidColorBrush(Colors.Red);
                 empty.Number.Text = currentLocation.Number.Text;
