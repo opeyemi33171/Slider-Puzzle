@@ -101,7 +101,7 @@ namespace SliderPuzzle
         void puzzlePiece_MouseDown(object sender, MouseButtonEventArgs e)
         {
             Label currentLocation = (Label)sender;
-            if(canMove(((Label)sender).XCoOrdinate, ((Label)sender).YCoOrdinate),
+            if(canMove(((Label)sender).XCoOrdinate, ((Label)sender).YCoOrdinate) 
             canMove(((Label)sender).XCoOrdinate, ((Label)sender).YCoOrdinate)!=null)
             {
                 Points emptySpace = new Points(canMove(((Label)sender).XCoOrdinate, ((Label)sender).YCoOrdinate).xCoOrdinate, canMove(((Label)sender).XCoOrdinate, ((Label)sender).YCoOrdinate).yCoOrdinate);
