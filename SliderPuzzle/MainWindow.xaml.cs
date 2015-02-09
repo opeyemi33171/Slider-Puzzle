@@ -101,14 +101,17 @@ namespace SliderPuzzle
         void puzzlePiece_MouseDown(object sender, MouseButtonEventArgs e)
         {
             Label currentLocation = (Label)sender;
-            Points emptySpace = new Points(canMove(((Label)sender).XCoOrdinate, ((Label)sender).YCoOrdinate).xCoOrdinate, canMove(((Label)sender).XCoOrdinate, ((Label)sender).YCoOrdinate).yCoOrdinate);
-            if(emptySpace!=null){
+            if(canMove(((Label)sender).XCoOrdinate, ((Label)sender).YCoOrdinate),
+            canMove(((Label)sender).XCoOrdinate, ((Label)sender).YCoOrdinate)!=null)
+            {
+                Points emptySpace = new Points(canMove(((Label)sender).XCoOrdinate, ((Label)sender).YCoOrdinate).xCoOrdinate, canMove(((Label)sender).XCoOrdinate, ((Label)sender).YCoOrdinate).yCoOrdinate);
                 sliderPuzzle[emptySpace.xCoOrdinate, emptySpace.yCoOrdinate] = sliderPuzzle[currentLocation.XCoOrdinate, currentLocation.YCoOrdinate];
                 sliderPuzzle[currentLocation.XCoOrdinate, currentLocation.YCoOrdinate] = sliderPuzzle[emptySpace.xCoOrdinate, emptySpace.yCoOrdinate];
                 empty.Background = new SolidColorBrush(Colors.Red);
                 empty.Number.Text = currentLocation.Number.Text;
                 currentLocation.Background = new SolidColorBrush(Colors.LightGray);
                 currentLocation.Number.Text="";
+                empty=currentLocation;
 
                 
           }
