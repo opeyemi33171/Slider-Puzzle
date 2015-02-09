@@ -20,10 +20,13 @@ namespace SliderPuzzle
     /// </summary>
     public partial class Label : UserControl
     {
-        public Label(string labelNumber)
+        public Label(string labelNumber,SolidColorBrush color)
         {
             InitializeComponent();
             this.Number.Text = labelNumber;
+            this.Number.Background = color;
         }
+       public int XCoOrdinate;
+       public int YCoOrdinate;
     }
 }

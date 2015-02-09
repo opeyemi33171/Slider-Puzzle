@@ -33,16 +33,31 @@ namespace SliderPuzzle
             {
                 for (int x = 0; x <=2; x++)
                 {
-                    if (puzzleCounter > 8) sliderPuzzle[x, y] = "";
+                    if (puzzleCounter > 8)
+                    {
+                        sliderPuzzle[x, y] = "";
+                        puzzlePiece = new Label("", new SolidColorBrush(Colors.LightGray))
+                        {
+                            XCoOrdinate=x,
+                            YCoOrdinate=y,
+                            Width = 99,
+                            Height = 99,
+                            Background=new SolidColorBrush(Colors.LightGray)
+                        };
+                    }
                     else
                     {
                         sliderPuzzle[x, y] = puzzleCounter.ToString();
+                        puzzlePiece = new Label(puzzleCounter.ToString(),new SolidColorBrush(Colors.Red))
+                        {
+                            Width = 99,
+                            Height = 99,
+                            XCoOrdinate=x,
+                            YCoOrdinate=y
+                        };
                         puzzleCounter += 1;
                     }
-                    puzzlePiece = new Label(puzzleCounter.ToString()) { 
-                    Width=99,
-                    Height=99
-                    };
+                   
                     puzzlePiece.MouseDown += puzzlePiece_MouseDown;
                     GameBoard.Children.Add(puzzlePiece);
                     Canvas.SetLeft(puzzlePiece, x * puzzlePiece.Width);
@@ -50,10 +65,24 @@ namespace SliderPuzzle
                 }
             }
         }
+        public bool canMove(int xCoOrdinate, int yCoOrdinate)
+        {
+            try
+            {
+                if (sliderPuzzle[xCoOrdinate + 1, yCoOrdinate] == "" || sliderPuzzle[xCoOrdinate - 1, yCoOrdinate] == "") return true;
+                if (sliderPuzzle[xCoOrdinate, yCoOrdinate + 1] == "" || sliderPuzzle[xCoOrdinate, yCoOrdinate - 1] == "") return true;
+            }
+            catch { };
+            return false;
+        }
+        public void move()
+        {
 
+        }
         void puzzlePiece_MouseDown(object sender, MouseButtonEventArgs e)
         {
-            throw new NotImplementedException();
+            canMove(((Label)sender).XCoOrdinate, ((Label)sender).YCoOrdinate);
+            
         }
     }
 }
